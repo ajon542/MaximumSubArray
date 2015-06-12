@@ -88,20 +88,20 @@ function FindMaximumSubArray_Linear(arr, low, high) {
     var i = 0;
     var j = 0;
     var sum = 0;
-    var maxSum = 0;
+    var maxSum = -Infinity;
 
     while (j <= high) {
         sum += arr[j];
-
-        if (sum < 0) {
-            i = j + 1;
-            sum = 0;
-        }
 
         if (sum > maxSum) {
             maxSum = sum;
             lowIndex = i;
             highIndex = j;
+        }
+        
+        if (sum < 0) {
+            i = j + 1;
+            sum = 0;
         }
 
         j++;
@@ -110,9 +110,12 @@ function FindMaximumSubArray_Linear(arr, low, high) {
     return { low: lowIndex, high: highIndex, sum: maxSum };
 }
 
-var arr = [-3, 10, 2, -1, 8, -4];
+//var arr = [-3, 10, 2, -1, 8, -4];
 //var arr = [ 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 ];
 //var arr = [5, -6, 3, 8, -100];
+//var arr = [-5];
+//var arr = [-5, -10];
+var arr = [-10, -5];
 var result1 = FindMaximumSubArray_Recursive(arr, 0, arr.length - 1);
 var result2 = FindMaximumSubArray_BruteForce(arr, 0, arr.length - 1);
 var result3 = FindMaximumSubArray_Linear(arr, 0, arr.length - 1);
