@@ -57,7 +57,7 @@ function FindMaximumSubArray(arr, low, high) {
 }
 
 var arr = [ 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 ];
-var result = FindMaximumSubArray(arr, 0, 15);
-console.log(result.low);
-console.log(result.high);
-console.log(result.sum);
+var result = FindMaximumSubArray(arr, 0, arr.length - 1);
+console.log(" Low index: ", result.low);
+console.log("High index: ", result.high);
+console.log("       Sum: ", result.sum);
