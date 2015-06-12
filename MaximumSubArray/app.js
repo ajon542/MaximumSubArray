@@ -56,6 +56,29 @@ function FindMaximumSubArray(arr, low, high) {
     }
 }
 
+// Input: the array A and the indices low and high.
+// Returns: a tuple containing the indices demarcating a maximum subarray
+// along with the sum of the values in a maximum subarray.
+function FindMaximumSubArray_BruteForce(arr, low, high) {
+    var maxSum = -Infinity;
+    var maxRight;
+    var maxLeft;
+
+    for (var i = low; i <= high; ++i) {
+        var sum = 0;
+        for (var j = i; j <= high; ++j) {
+            sum += arr[j];
+            if (sum > maxSum) {
+                maxSum = sum;
+                maxLeft = i;
+                maxRight = j;
+            }
+        }
+    }
+
+    return { low: maxLeft, high: maxRight, sum: maxSum };
+}
+
 var arr = [ 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 ];
 var result = FindMaximumSubArray(arr, 0, arr.length - 1);
 console.log(" Low index: ", result.low);

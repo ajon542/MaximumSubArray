@@ -18,6 +18,8 @@ console.log("       Sum: ", result.sum);
 ```javascript
 var result = FindMaximumSubArray(arr, 0, arr.length - 1);
 
+var result = FindMaximumSubArray_BruteForce(arr, 0, arr.length - 1);
+
 ```
 
 ## Notes and References
