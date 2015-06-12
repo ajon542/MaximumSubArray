@@ -37,13 +37,13 @@ function FindMaxCrossingSubArray(arr, low, mid, high) {
 // Input: the array A and the indices low and high.
 // Returns: a tuple containing the indices demarcating a maximum subarray
 // along with the sum of the values in a maximum subarray.
-function FindMaximumSubArray(arr, low, high) {
+function FindMaximumSubArray_Recursive(arr, low, high) {
     if (high == low) {
         return { low: low, high: high, sum: arr[low] };
     } else {
         var mid = Math.floor((low + high) / 2);
-        var left = FindMaximumSubArray(arr, low, mid);
-        var right = FindMaximumSubArray(arr, mid + 1, high);
+        var left = FindMaximumSubArray_Recursive(arr, low, mid);
+        var right = FindMaximumSubArray_Recursive(arr, mid + 1, high);
         var cross = FindMaxCrossingSubArray(arr, low, mid, high);
 
         if ((left.sum >= right.sum) && (left.sum >= cross.sum)) {
@@ -79,8 +79,59 @@ function FindMaximumSubArray_BruteForce(arr, low, high) {
     return { low: maxLeft, high: maxRight, sum: maxSum };
 }
 
-var arr = [ 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 ];
-var result = FindMaximumSubArray(arr, 0, arr.length - 1);
-console.log(" Low index: ", result.low);
-console.log("High index: ", result.high);
-console.log("       Sum: ", result.sum);
+// Input: the array A and the indices low and high.
+// Returns: a tuple containing the indices demarcating a maximum subarray
+// along with the sum of the values in a maximum subarray.
+function FindMaximumSubArray_Linear(arr, low, high) {
+    var lowIndex = 0;
+    var highIndex = 0;
+    var i = 0;
+    var j = 0;
+    var sum = 0;
+    var maxSum = 0;
+
+    while (j <= high) {
+        sum += arr[j];
+
+        if (sum < 0) {
+            i = j + 1;
+            sum = 0;
+        }
+
+        if (sum > maxSum) {
+            maxSum = sum;
+            lowIndex = i;
+            highIndex = j;
+        }
+
+        j++;
+    }
+
+    return { low: lowIndex, high: highIndex, sum: maxSum };
+}
+
+var arr = [-3, 10, 2, -1, 8, -4];
+//var arr = [ 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 ];
+//var arr = [5, -6, 3, 8, -100];
+var result1 = FindMaximumSubArray_Recursive(arr, 0, arr.length - 1);
+var result2 = FindMaximumSubArray_BruteForce(arr, 0, arr.length - 1);
+var result3 = FindMaximumSubArray_Linear(arr, 0, arr.length - 1);
+console.log("-------------------");
+console.log("Recursive");
+console.log("-------------------");
+console.log(" Low index: ", result1.low);
+console.log("High index: ", result1.high);
+console.log("       Sum: ", result1.sum);
+console.log("-------------------");
+console.log("BruteForce");
+console.log("-------------------");
+console.log(" Low index: ", result2.low);
+console.log("High index: ", result2.high);
+console.log("       Sum: ", result2.sum);
+console.log("-------------------");
+console.log("Linear");
+console.log("-------------------");
+console.log(" Low index: ", result3.low);
+console.log("High index: ", result3.high);
+console.log("       Sum: ", result3.sum);
+console.log("-------------------");
